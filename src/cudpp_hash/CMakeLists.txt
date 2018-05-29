@@ -48,25 +48,12 @@ set(HFILES_PUBLIC
 source_group("CUDA Source Files" FILES ${CUFILES})
 source_group("CUDA Header Files" FILES ${CUHFILES})
 
-set(GENCODE_SM12 -gencode=arch=compute_12,code=sm_12 -gencode=arch=compute_12,code=compute_12)
-set(GENCODE_SM13 -gencode=arch=compute_13,code=sm_13 -gencode=arch=compute_13,code=compute_13)
-set(GENCODE_SM20 -gencode=arch=compute_20,code=sm_20 -gencode=arch=compute_20,code=compute_20)
 set(GENCODE_SM30 -gencode=arch=compute_30,code=sm_30 -gencode=arch=compute_30,code=compute_30)
 set(GENCODE_SM35 -gencode=arch=compute_35,code=sm_35 -gencode=arch=compute_35,code=compute_35)
-
-#set(GENCODE -gencode=arch=compute_10,code=compute_10) # at least generate PTX
-
-#option(CUDPP_GENCODE_SM12
-#       "ON to generate code for Compute Capability 1.2 devices (e.g. GeForce GT 330M)"
-#       OFF)
-
-#option(CUDPP_GENCODE_SM13
-#       "ON to generate code for Compute Capability 1.3 devices (e.g. Tesla C1060)"
-#       OFF)
-
-#option(CUDPP_GENCODE_SM20
-#       "ON to generate code for Compute Capability 2.0 devices (e.g. Tesla C2050)"
-#       OFF)
+set(GENCODE_SM50 -gencode=arch=compute_50,code=sm_50 -gencode=arch=compute_50,code=compute_50)
+set(GENCODE_SM52 -gencode=arch=compute_52,code=sm_52 -gencode=arch=compute_52,code=compute_52)
+set(GENCODE_SM60 -gencode=arch=compute_60,code=sm_60 -gencode=arch=compute_60,code=compute_60)
+set(GENCODE_SM61 -gencode=arch=compute_61,code=sm_61 -gencode=arch=compute_61,code=compute_61)
 
 option(CUDPP_GENCODE_SM30
        "ON to generate code for Compute Capability 3.0 devices (e.g. Tesla K10)"
@@ -80,17 +67,17 @@ option(CUDPP_GENCODE_SM50
        "ON to generate code for Compute Capability 5.0 devices (e.g. GeForce GTX 750)"
        OFF)
 
-if (CUDPP_GENCODE_SM12)
-  set(GENCODE ${GENCODE} ${GENCODE_SM12})
-endif(CUDPP_GENCODE_SM12)
+option(CUDPP_GENCODE_SM52
+       "ON to generate code for Compute Capability 5.2 devices (e.g. GeForce GTX 950)"
+       OFF)
 
-if (CUDPP_GENCODE_SM13)
-  set(GENCODE ${GENCODE} ${GENCODE_SM13})
-endif(CUDPP_GENCODE_SM13)
+option(CUDPP_GENCODE_SM60
+       "ON to generate code for Compute Capability 6.0 devices (e.g. Tesla P100)"
+       OFF)
 
-if (CUDPP_GENCODE_SM20)
-  set(GENCODE ${GENCODE} ${GENCODE_SM20})
-endif(CUDPP_GENCODE_SM20)
+option(CUDPP_GENCODE_SM61
+       "ON to generate code for Compute Capability 6.1 devices (e.g. GeForce GTX 1050)"
+       OFF)
 
 if (CUDPP_GENCODE_SM30)
   set(GENCODE ${GENCODE} ${GENCODE_SM30})
@@ -104,12 +91,24 @@ if (CUDPP_GENCODE_SM50)
   set(GENCODE ${GENCODE} ${GENCODE_SM50})
 endif(CUDPP_GENCODE_SM50)
 
+if (CUDPP_GENCODE_SM52)
+  set(GENCODE ${GENCODE} ${GENCODE_SM52})
+endif(CUDPP_GENCODE_SM52)
+
+if (CUDPP_GENCODE_SM60)
+  set(GENCODE ${GENCODE} ${GENCODE_SM60})
+endif(CUDPP_GENCODE_SM60)
+
+if (CUDPP_GENCODE_SM61)
+  set(GENCODE ${GENCODE} ${GENCODE_SM61})
+endif(CUDPP_GENCODE_SM61)
+
 if (CUDA_VERBOSE_PTXAS)
   set(VERBOSE_PTXAS --ptxas-options=-v)
 endif (CUDA_VERBOSE_PTXAS)
 
 if (WIN32)
-    add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
+  add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
 endif (WIN32)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -139,7 +138,7 @@ cuda_add_library(cudpp_hash ${LIB_TYPE}
   ${CUHFILES}
   ${HFILES_PUBLIC}
   ${CUFILES}
-  OPTIONS ${GENCODE_SM20} ${VERBOSE_PTXAS}
+  OPTIONS ${GENCODE} ${VERBOSE_PTXAS}
   )
 
 target_link_libraries(cudpp_hash cudpp)
