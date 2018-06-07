@@ -822,5 +822,5 @@ CUDPPMultiSplitPlan::CUDPPMultiSplitPlan(CUDPPManager *mgr,
 /** brief MultiSplit Plan Destructor*/
 CUDPPMultiSplitPlan::~CUDPPMultiSplitPlan()
 {
-    freeMultiSplitStorage(this);
+    //freeMultiSplitStorage(this);
 }

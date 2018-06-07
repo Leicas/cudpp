@@ -1077,11 +1077,6 @@ CUDPPResult cudppMultiSplit(const CUDPPHandle planHandle,
 
     if (plan != NULL)
     {
-      cudppMultiSplitDispatch(d_keys, d_values, numElements, numBuckets, NULL, plan);
-          return CUDPP_SUCCESS;
-    }
-    else
-    {
         return CUDPP_ERROR_INVALID_HANDLE;
     }
 }
@@ -1129,12 +1124,6 @@ CUDPPResult cudppMultiSplitCustomBucketMapper(const CUDPPHandle planHandle,
         (CUDPPMultiSplitPlan*)getPlanPtrFromHandle<CUDPPMultiSplitPlan>(planHandle);
 
     if (plan != NULL)
-    {
-      cudppMultiSplitDispatch(d_keys, d_values, numElements, numBuckets,
-        bucketMappingFunc, plan);
-          return CUDPP_SUCCESS;
-    }
-    else
     {
         return CUDPP_ERROR_INVALID_HANDLE;
     }
