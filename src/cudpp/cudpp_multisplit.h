@@ -15,7 +15,7 @@
 #include "cudpp.h"
 #include "cudpp_plan.h"
 
-
+/*
 extern "C"
 void allocMultiSplitStorage(CUDPPMultiSplitPlan* plan);
 
@@ -28,6 +28,6 @@ void cudppMultiSplitDispatch(unsigned int *d_keys,
                              size_t numElements,
                              size_t numBuckets,
                              BucketMappingFunc bucketMappingFunc,
-                             const CUDPPMultiSplitPlan *plan);
+                             const CUDPPMultiSplitPlan *plan);*/
 
 #endif // __MULTISPLIT_H__
