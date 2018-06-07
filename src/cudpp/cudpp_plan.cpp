@@ -812,7 +812,7 @@ CUDPPMultiSplitPlan::CUDPPMultiSplitPlan(CUDPPManager *mgr,
     m_numElements = numElements;
     m_numBuckets = numBuckets;
 
-    allocMultiSplitStorage(this);
+    //allocMultiSplitStorage(this);
 
     // use the allocated array for temporary storage of keys and values
     m_d_temp_keys = (unsigned int *) m_d_key_value_pairs;
